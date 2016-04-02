@@ -40,6 +40,7 @@ public class KeenIOSinkTask extends SinkTask {
         collection = props.get(KeenIOSinkConnector.KEEN_IO_COLLECTION_CONFIG);
 
         keenClient = new JavaKeenClientBuilder().build();
+        KeenClient.initialize(keenClient);
         KeenProject project = new KeenProject(projectKey, writeKey, null);
         keenClient.setDefaultProject(project);
 
