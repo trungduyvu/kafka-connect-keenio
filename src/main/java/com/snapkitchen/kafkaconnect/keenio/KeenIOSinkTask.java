@@ -49,20 +49,15 @@ public class KeenIOSinkTask extends SinkTask {
 
     public void put(Collection<SinkRecord> sinkRecords) {
         for (SinkRecord record : sinkRecords) {
-            try {
-                JSONObject jsonObject = (JSONObject) jsonParser.parse((String) record.value());
-                Map<String, Object> event = new HashMap<>();
-                Iterator<?> keys = jsonObject.keySet().iterator();
-                while(keys.hasNext()) {
-                    String key = (String)keys.next();
-                    Object value = jsonObject.get(key);
-                    event.put(key, value);
-                }
-                keenClient.client().queueEvent(collection, event);
-            } catch (ParseException e) {
-                e.printStackTrace();
-                continue;
-            }
+//                JSONObject jsonObject = (JSONObject) jsonParser.parse((String) record.value());
+//                Map<String, Object> event = new HashMap<>();
+//                Iterator<?> keys = jsonObject.keySet().iterator();
+//                while(keys.hasNext()) {
+//                    String key = (String)keys.next();
+//                    Object value = jsonObject.get(key);
+//                    event.put(key, value);
+//                }
+            keenClient.client().queueEvent(collection, (Map<String, Object>) record.value());
         }
     }
 
